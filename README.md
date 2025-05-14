@@ -12,11 +12,11 @@ guard that limits the number of people in a shop to improve the customers experi
 
 # Hardware:
 
-See ./hardware/Hardware_Documentation
+See ./hardware/Hardware_Documentation and video proof
 
 # Software:
 
-See ./software/Software_Documentation
+See ./software/Software_Documentation and video proof
 
 # Bibliography:
 https://circuitdigest.com/microcontroller-projects/interfacing-ssd1306-oled-display-with-esp8266-nodemcu
