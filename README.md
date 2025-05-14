@@ -1,6 +1,8 @@
 # Copyright 2025 - Toma Dumitrescu
 
-Mall Counter
+# Mall Counter:
+
+Project link: https://ocw.cs.pub.ro/courses/pm/prj2025/eradu/toma.dumitrescu
 
 # Description:
 Mall Counter is a project that aims to count the number of people that entered a room using an analog sensor and the approximated time between sending wave and returning wave of some frequency.
