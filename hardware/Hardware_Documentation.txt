@@ -1,0 +1,60 @@
+# Hardware:
+
+1. Description:
+- Battery/Charger: powers the system with a certain voltage
+- HW-131: regulator for the ESP8266, and also a test for the components functionalities
+- ESP8266: microcontroller where the code goes
+- Voltage Divider: the analog sensor is not necessarily designed for this kit, thus the voltage should be normalized for A0
+- Distance sensor: measures the distance by calculating time between sending and receiving wave
+- OLED: the display where the number of people will be showed
+- SD Card: used for storing information (extension of current features)
+
+Flow: the system is charged, a person passes near the sensor, ADC generates an interruption, a voltage is recorded by A0, the value is
+converted to a distance, and if the distance is in some interval, then increase the counter and display the number on the OLED.
+
+Voltage divider:
+From the sensor datasheet, the normal range is 0-5.23, so since A0 accepts maximum 1V, then divide by 5.3. Evidently,
+Vo = (R1/ (R1 + R2)) * Vi. Now Vi is the Vo of the sensor, and the Vo is the Vi for the ESP 8266. This means R2 = 4.3R1. So I
+chose convenable values like R1 = 1k and R2 = 4.3k. Now since I did not have exactly 4.3k, I just connected serially four
+resistors R2 = 2k + 2k + 0.15k + 0.15k. Now the input for A0 is the interval I where I is included in [0, 1]. The practical
+values can be calculated just by measuring minimum and maximum points.
+
+2. Components list:
+- DBGOLD 6F22 battery
+- HW-131 power supply platform
+- ESP8266 Wi-Fi microcontroller
+- Breadboard
+- Distance sensor GP2Y0A21YK0F
+- OLED GME12864-14
+- SD card
+- wires
+- resistors
+- USB/USB-C cable
+
+3. Schemas: see block schema, electrical schema and signals graphs
+
+Notes:
+Digital: SCK, SDA, CS, DC, RES, USB UART TX/RX, VIN
+Analog: sensor_VO, A0
+- here is a plot of the expected voltages for V_O and A_in when a person passes at some distances
+
+4. Hardware video comments:
+
+There is a minimal code to test each component. As can be seen in the video, the OLED works and has a test message display, and the values
+registered by ESP8266 on the A0 pin. For the normal state there is an oscillation between values 14 - 70. But, when a hand is near the sensor,
+the value changes dramatically to 214 - 250 if the hand is far, or 550 - 750 when the hand is close. There is no need of precise measurement,
+and without loss of correction can be assumed that the threshold for counting is 100. Evidently, this depends on how close is the oposite wall (extreme
+maximum) the sensor is nearby.
+
+Bugs that consumed time:
+
+- I did not know that the infrared sensor should not blink when the Vi = 5V is connected so I tried to find a non-existent bug
+- There was a switch for the HW-131 board I did not know about that permits or not permits voltage from battery. Why I did not know?
+I could transfer voltage from the ESP8266 board (connected via USB with the PC) to the HW131 module without pressing any button.
+- The OLED did not work initially because I thought the RST pin can be optionally connected to the ESP board
+- Troubles identifying the correct COM when transferring the code from PC to the ESP board (solved by choosing another port)
+- Verifying every component working state with a diode
+- The infrared sensor came with an incompatible interface with too thin wires. After asking the laboratory assistant, I made a
+cut on some jumper wires (female-male) and glued the wires with the soldering iron, then covered them with adhesive tape
+
+5. Costs: the total cost of the project was 200 (esp kit) + 50 (sensor) + 25 (OLED) = 275 RON
