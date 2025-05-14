@@ -1,1 +1,32 @@
+# Hardware:
 
+1. Description:
+- Battery/Charger: powers the system with a certain voltage
+- HW-131: regulator for the ESP8266, and also a test for the components functionalities
+- ESP8266: microcontroller where the code goes
+- Voltage Divider: the analog sensor is not necessarily designed for this kit, thus the voltage should be normalized for A0
+- Distance sensor: measures the distance by calculating time between sending and receiving wave
+- OLED: the display where the number of people will be showed
+- SD Card: used for storing information (extension of current features)
+
+Flow: the system is charged, a person passes near the sensor, ADC generates an interruption, a voltage is recorded by A0, the value is
+converted to a distance, and if the distance is in some interval, then increase the counter and display the number on the OLED.
+
+2. Components list:
+- DBGOLD 6F22 battery
+- HW-131 power supply platform
+- ESP8266 Wi-Fi microcontroller
+- Breadboard
+- Distance sensor GP2Y0A21YK0F
+- OLED GME12864-14
+- SD card
+- wires
+- resistors
+- USB/USB-C cable
+
+3. Schemas: see block schema, electrical schema and signals graphs
+
+Notes:
+Digital: SCK, SDA, CS, DC, RES, USB UART TX/RX, VIN
+Analog: sensor_VO, A0
+- here is a plot of the expected voltages for V_O and A_in when a person passes at some distances
