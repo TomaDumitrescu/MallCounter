@@ -1,1 +1,31 @@
+IDE:
 
+- PlatformIO and Arduino on Visual Studio Code
+- Board platform: Espressif 8266
+- Program upload: USB or by Wi-Fi
+
+Libraries:
+
+- adafruit/Adafruit GFX Library
+- adafruit/Adafruit SSD1306
+- Adafruit_GFX.h, Adafruit_SSD1306.h, Arduino.h
+
+Algorithms and Data Structures:
+
+- threshold distance for the counter
+- basic interfaces for SPI, GPIO, ADC
+- OLED number display
+
+Pseudocode:
+
+count = 0
+while True:
+    d = ADC_detect_with_low_delay()
+
+    if d <= threshold:
+        count++
+    
+    clear_display()
+    SPI_display(count)
+
+The software uses concepts from SPI, TIMER, INT.
