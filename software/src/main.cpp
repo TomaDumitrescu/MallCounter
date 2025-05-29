@@ -11,11 +11,16 @@
 #define OLED_GME12864_14_DC     D2
 #define OLED_GME12864_14_RST    -1
 #define OLED_GME12864_14_CS     D8
+
 #define ANALOG_CHN      (uint8_t)17U
+
 #define INIT_DELAY          1000
 #define INIT_CURSOR_X 0
 #define INIT_CURSOR_Y 0
 #define SKIP_TEXT 20
+
+// Semaphore
+#define GO D1
 
 // Closeness CNT_THRESHOLD for the sensor
 #define CNT_THRESHOLD         150
@@ -50,6 +55,9 @@ IRAM_ATTR void onSample() {
 void setup() {
   // The OLED and the Arduino will have same baud rates
   Serial.begin(BAUD_RATE);
+
+  // Init the semaphore, red at the start
+  pinMode(GO, OUTPUT);
 
   // Initializing SPI
   SPI.begin();
@@ -88,7 +96,16 @@ void setup() {
   timer.attach_ms(150, onSample);
 }
 
+bool first_green_switch = true;
+
 void loop() {
+  if (first_green_switch) {
+    first_green_switch = false;
+
+    delay(200);
+
+    digitalWrite(GO, HIGH);
+  }
 
   if (new_sensor_in) {
     // For avoiding read after write
@@ -99,6 +116,16 @@ void loop() {
     uint32_t count = cnt;
 
     new_sensor_in = false;
+
+    if (val > CNT_THRESHOLD) {
+      // Lock
+      digitalWrite(GO, LOW);
+
+      delay(1500);
+
+      // Unlock
+      digitalWrite(GO, HIGH);
+    }
 
     interrupts();
 
