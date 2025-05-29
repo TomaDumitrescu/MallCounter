@@ -28,4 +28,6 @@ while True:
     clear_display()
     SPI_display(count)
 
-The software uses concepts from SPI, TIMER, INT.
+The software uses concepts from SPI, TIMER, INT, GPIO.
+
+Interfaces for GPIO: pinMode and digitalWrite.
